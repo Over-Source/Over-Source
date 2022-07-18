@@ -1,0 +1,53 @@
+name: Over Source Actions
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    build-windows:
+        name: Build Windows
+        runs-on: windows-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Creating sln
+              run: src\_create_game.bat
+
+            - name: Setting up msbuild
+              uses: microsoft/setup-msbuild@v1.1
+              with:
+                msbuild-architecture: x86
+            
+            # TODO: Make the name of the sln auto
+            - name: Building project
+              run: msbuild src\everything.sln -t:rebuild -verbosity:diag -property:Configuration=Release
+
+            - name: Packing product
+              shell: bash
+              run: tar cJfv build_windows.tar.xz game\mod_swarm\bin
+
+            # Maybe not include the pdb(s)?
+            - name: Uploading project
+              uses: actions/upload-artifact@v2
+              with:
+                name: steps.prepare_artifacts.outputs.short_commit_sha
+                path: build_windows.tar.xz
+    """
+    build-linux:
+        name: Build Linux
+        runs-on: [self-hosted, linux]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Creating makefile
+              run: sh ./src/_create_game.sh
+
+            - name: Building project
+              run: ./src/compile_commands/release_linux_i386.json # Were gonna do something with this makefile
+
+            - name: Upload artifact(s)
+    """

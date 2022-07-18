@@ -13,6 +13,10 @@ configurations
 project "client"            		"game/client/client_swarm.qpc" [$SWARM]
 project "server"            		"game/server/server_swarm.qpc" [$SWARM]
 project "missionchooser"    		"game/missionchooser/missionchooser_swarm.qpc" [$SWARM]
+
+//-----------------------------------------------------------------------------
+
+project "captioncompiler" 			"utils/captioncompiler/captioncompiler.qpc"
 project "shaderlib"		    		"materialsystem/shaderlib/shaderlib.qpc"
 project "game_shader"               "materialsystem/stdshaders/_game_shader_dx9.qpc"
 project "responserules_runtime"     "responserules/runtime/responserules_runtime.qpc"
@@ -29,6 +33,11 @@ group "shaders"
 	"shaderlib"
 }
 
+group "utils"
+{
+	"captioncompiler"
+}
+
 group "game" "everything"
 {
 	folder "Game Binaries"
@@ -37,6 +46,11 @@ group "game" "everything"
 	}
 
 	contains "shaders"
+	
+	folder "Utils"
+	{
+		contains "utils"
+	}
 
 	"missionchooser"
 	"responserules_runtime"

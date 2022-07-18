@@ -16,5 +16,3 @@ body:
       label: Operating System
       description: Windows 10, Arch Linux, MacOS, etc
       placeholder: Arch Linux
-    validations:
-      required: true

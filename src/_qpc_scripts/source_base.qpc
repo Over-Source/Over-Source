@@ -1,91 +1,53 @@
 // ---------------------------------------------------------------
-// source_base.qpc
+// Base file included in all projects
 // ---------------------------------------------------------------
-macro SRC_DIR  [!$SRC_DIR]
-macro GAMENAME [!$GAMENAME]
 
-macro WIN32	            "1"        [$WINDOWS && $I386]
-macro WIN64	            "1"        [$WINDOWS && $AMD64]
-
-macro LINUX32	        "1"        [$LINUX && $I386]
-macro LINUX64	        "1"        [$LINUX && $AMD64]
-
-macro 32BITS	        "1"        [$I386]
-macro 64BITS	        "1"        [$AMD64]
-
-macro PLATSUBDIR        ""
-macro PLATSUBDIR        "/x64"     [$WIN64]
-macro PLATSUBDIR        "/."       [$X360]
-macro PLATSUBDIR        "/linux32" [$LINUX32]
-macro PLATSUBDIR        "/osx32"   [$OSX32]
-
-macro OUT_BIN_NAME "$SCRIPT_NAME" [!$OUT_BIN_NAME]
-
-macro LIBPUBLIC "$SRC_DIR/lib/public$PLATSUBDIR"
-macro LIBCOMMON "$SRC_DIR/lib/common$PLATSUBDIR"
-
-macro BUILD_DIR         "$CONFIG/$GAMENAME$PLATSUBDIR"  [!$BUILD_DIR]
-
-include "$SRC_DIR/_qpc_scripts/source_win32_base.qpc" [$WINDOWS]
+include "$SRC_DIR/_qpc_scripts/base_macros.qpc"
+include "$SRC_DIR/_qpc_scripts/win/base_vstudio.qpc"	[$WINDOWS]
 
 configuration
 {
 	general
 	{
-		out_dir "./$BUILD_DIR"
-		build_dir "./$BUILD_DIR"
-		
 		language "cpp"
-		
-		include_directories
-		{
-			"$SRC_DIR/common"
-			"$SRC_DIR/public"
-			"$SRC_DIR/public/tier0"
-			"$SRC_DIR/public/tier1"
-		}
-		
-		library_directories
-		{
-			"$LIBCOMMON"
-			"$LIBPUBLIC"
-		}
+		include_directories { "$SRC_DIR/common" "$SRC_DIR/public" "$SRC_DIR/public/tier0" "$SRC_DIR/public/tier1" }
 	}
 	
 	compiler
 	{
 		preprocessor_definitions
-		{
+		{			
+			"STAGING_ONLY" [$STAGING_ONLY]
+			
+			"_X64_" "_x64_" "PLATFORM_64BITS" "_x86_64_" "_X86_64_" 	[$ARCH == x86_64]
+			"_X86_" "_x86_" "PLATFORM_32BITS" "_I386_" "_I386" 			[$ARCH == x86]
+			
+			"_HAS_ITERATOR_DEBUGGING=0" "_DEBUG" "DEBUG" 	[$DEBUG]
+			"NDEBUG"										[$RELEASE]
+			
+			"RELEASE_ASSERTS" [$RELEASEASSERTS && $RELEASE]
+			
 			"DEV_BUILD" [!$PUBLISH]
 			"_PROFILE" [$PROFILE && !$RETAIL]
-			
-			"PLATFORM_64BITS" [$64BITS]
-			
-			"SUPPRESS_INVALID_PARAMETER_NO_INFO" "_HAS_ITERATOR_DEBUGGING=0" "_DEBUG" "DEBUG" [$DEBUG]
-			"NDEBUG" [$RELEASE]
-			
 			"RETAIL_ASSERTS" [$RETAIL && $RETAILASSERTS]
-			"RELEASEASSERTS" [$RELEASEASSERTS && $RELEASE]
 			
-			"FRAME_POINTER_OMISSION_DISABLED"
-			"MEMOVERRIDE_MODULE=$PROJECT_NAME"
-			
-			"_BIN_EXT=$_BIN_EXT"
-			"DLLNAME=$OUT_BIN_NAME"
-			
-			"STAGING_ONLY" [$STAGING_ONLY]
-			"TF_BETA" [$TF_BETA]
-			"RAD_TELEMETRY_DISABLED" [$SOURCESDK]
-			"VPC"
-			
-			// video base
-			"BINK_VIDEO"
-			"AVI_VIDEO"
-			"WMV_VIDEO"
+			"_DLL_EXT=$_BIN_EXT"
+			"FRAME_POINTER_OMISSION_DISABLED" "VPC"
 		}
-		
-		precompiled_header "none"
 	}
 }
 
+files [!$IS_LIB_PROJECT]
+{
+	folder "Source Files"
+	{
+		"$SRC_DIR/public/tier0/memoverride.cpp"
+		{
+			configuration
+			{
+				compiler { precompiled_header "none" }
+			}
+		}
+	}
+}
 

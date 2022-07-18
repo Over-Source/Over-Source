@@ -1,27 +1,53 @@
 // ---------------------------------------------------------------
-// source_dll_base.qpc
+// Base Dynamic Library Settings
 // ---------------------------------------------------------------
-macro OUT_BIN_EXT "$_BIN_EXT" [!$OUT_BIN_EXT]
+macro OUTBINNAME        "$SCRIPT_NAME"     [!$OUTBINNAME]
+macro OUTBINDIR         "$BINDEFAULT"       [!$OUTBINDIR]
+macro OUTDLLEXT         "$_BIN_EXT"
 
-macro SRC_DIR [!$SRC_DIR]
+include "$SRC_DIR/_qpc_scripts/source_base.qpc"
 
-include "$SRC_DIR/_qpc_scripts/source_dll_exe_base.qpc"
+include "$SRC_DIR/_qpc_scripts/posix/dll_base.qpc" 	[$POSIX]
+include "$SRC_DIR/_qpc_scripts/win/dll_base.qpc" 	[$WINDOWS]
 
 configuration
 {
 	general
 	{
+		out_name "$OUTBINNAME"
+		
+		// out_dir "./$OUTBINDIR"
+		out_dir "./$CONFIG/$_SUBDIRSUFFIX"
+		int_dir "./$CONFIG/$_SUBDIRSUFFIX"
+		
 		configuration_type "dynamic_library"
-	}
-}
 
-files
-{
-	folder "Source Files"
-	{
-		"$SRC_DIR/common/debug_dll_check.cpp"
+		library_directories
 		{
-			precompiled_header "none"
+			"$LIBCOMMON" "$LIBPUBLIC"
+		}
+	}
+	
+	compiler
+	{
+		preprocessor_definitions
+		{
+			"_DLL_EXT=$OUTDLLEXT"
+			"DLLNAME=$OUTBINNAME"
+		}
+	}
+	
+	linker
+	{
+		output_file		"./$OUTBINDIR/$OUTBINNAME"
+		debug_file		"./$OUTBINDIR/$OUTBINNAME"
+		
+		libraries
+		{
+			"$LIBPUBLIC/tier0"
+			"$LIBPUBLIC/tier1"
+			"$LIBPUBLIC/vstdlib"
 		}
 	}
 }
+

@@ -6,7 +6,6 @@
 //=============================================================================//
 
 #include "cbase.h"
-#include <limits.h>
 #include "isaverestore.h"
 #include "saverestore.h"
 #include <stdarg.h>

@@ -198,9 +198,15 @@ public:
 
 	unsigned int operator()( const NavVisPair_t &item ) const
 	{
-		COMPILE_TIME_ASSERT( sizeof(CNavArea *) == 4 );
-		int key[2] = { (int)item.pAreas[0] + item.pAreas[1]->GetID(), (int)item.pAreas[1] + item.pAreas[0]->GetID() };
-		return Hash8( key );	
+		intp key[2] = { (intp) ( (intp)item.pAreas[0] + item.pAreas[1]->GetID() ), (intp)( (intp)item.pAreas[1] + item.pAreas[0]->GetID() ) };
+		if ( sizeof( key ) >= 16 )
+		{
+			return Hash16( key );
+		}
+		else
+		{
+			return Hash8( key );
+		}
 	}
 };
 

@@ -14,6 +14,7 @@
 #include "tier1/iconvar.h"
 #include "tier1/utlvector.h"
 
+#include "tier0/memdbgon.h"
 
 class ConCommandBase;
 class ConCommand;
@@ -174,7 +175,7 @@ inline ICvar::Iterator::Iterator(ICvar *icvar)
 
 inline ICvar::Iterator::~Iterator( void )
 {
-	delete m_pIter;
+	g_pMemAlloc->Free( m_pIter );
 }
 
 inline void ICvar::Iterator::SetFirst( void )

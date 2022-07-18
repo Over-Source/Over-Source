@@ -118,12 +118,7 @@ entities. Each one is useful under different conditions.
 #include "clientleafsystem.h"
 #include "tier0/fasttimer.h"
 #include "utllinkedlist.h"
-#include "UtlDict.h"
-#ifdef WIN32
-#include <typeinfo.h>
-#else
-#include <typeinfo>
-#endif
+#include "typeinfo_safe.h"
 #include "tier1/utlintrusivelist.h"
 #include "tier1/utlobjectreference.h"
 #include "tier1/utlstring.h"

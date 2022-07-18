@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------
 // server_base.qpc
 // ---------------------------------------------------------------
-macro OUT_BIN_NAME "server"
-macro OUT_BIN_DIR "$SRC_DIR/../game/$GAMENAME/bin"
+macro OUTBINNAME "server"
+macro OUTBINDIR "$SRC_DIR/../game/$GAMENAME/bin"
 macro GAMENAME [!$GAMENAME]
 
 include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"

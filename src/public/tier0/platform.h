@@ -37,6 +37,7 @@
 #include <float.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #ifdef COMPILER_GCC
 #include <new>
@@ -280,31 +281,6 @@ typedef double				float64;
 typedef unsigned int		uint;
 
 
-// Maximum and minimum representable values
-#ifndef PLATFORM_OSX
-
-#define  INT8_MAX			SCHAR_MAX
-#define  INT16_MAX			SHRT_MAX
-#define  INT32_MAX			LONG_MAX
-#define  INT64_MAX			(((int64)~0) >> 1)
-
-#define  INT8_MIN			SCHAR_MIN
-#define  INT16_MIN			SHRT_MIN
-#define  INT32_MIN			LONG_MIN
-#define  INT64_MIN			(((int64)1) << 63)
-
-#define  UINT8_MAX			((uint8)~0)
-#define  UINT16_MAX			((uint16)~0)
-#define  UINT32_MAX			((uint32)~0)
-#define  UINT64_MAX			((uint64)~0)
-
-#define  UINT8_MIN			0
-#define  UINT16_MIN			0
-#define  UINT32_MIN			0
-#define  UINT64_MIN			0
-
-#endif // PLATFORM_OSX
-
 #ifndef  UINT_MIN
 #define  UINT_MIN			UINT32_MIN
 #endif
@@ -369,7 +345,12 @@ typedef unsigned int		uint;
 	#define NO_VTABLE				__declspec( novtable )
 
 	// gcc doesn't allow storage specifiers on explicit template instatiation, but visual studio needs them to avoid link errors.
+	// however newer builds of MSVC follow the (correct) GCC standard. Not sure when this fix occurred, I'm going to guess it was with the VS2017 v141 toolset.
+#if _MSC_VER >= 1910
+	#define TEMPLATE_STATIC			
+#else
 	#define TEMPLATE_STATIC			static
+#endif
 
 	// Used for dll exporting and importing
 	#define DLL_EXPORT				extern "C" __declspec( dllexport )

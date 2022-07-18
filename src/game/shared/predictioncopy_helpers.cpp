@@ -10,7 +10,7 @@
 #if !defined( NO_ENTITY_PREDICTION )
 
 #include "IGameSystem.h"
-#include <typeinfo.h>
+#include "typeinfo_safe.h"
 #include "cdll_int.h"
 
 #include <memory.h>

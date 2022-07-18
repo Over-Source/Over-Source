@@ -5,8 +5,8 @@ macro PROJECT_NAME "MissionChooser"
 
 macro SRC_DIR "../.."
 macro GAMENAME "mod_swarm"
-macro OUT_BIN_NAME "missionchooser"
-macro OUT_BIN_DIR "$SRC_DIR/../game/$GAMENAME/bin"
+macro OUTBINNAME "missionchooser"
+macro OUTBINDIR "$SRC_DIR/../game/$GAMENAME/bin"
 
 include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"
 

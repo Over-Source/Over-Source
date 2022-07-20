@@ -16,6 +16,7 @@ project "missionchooser"    		"game/missionchooser/missionchooser_swarm.qpc" [$S
 
 //-----------------------------------------------------------------------------
 
+project "tier1" 					"tier1/tier1.qpc"
 project "captioncompiler" 			"utils/captioncompiler/captioncompiler.qpc"
 project "shaderlib"		    		"materialsystem/shaderlib/shaderlib.qpc"
 project "jpeglib"					"thirdparty/jpeglib/jpeglib.qpc" [$WINDOWS]
@@ -36,6 +37,14 @@ group "shaders"
 
 group "utils"
 {
+	folder "Libraries"
+	{
+		folder "Tiers"
+		{
+			"tier1"
+		}
+	}
+
 	"captioncompiler"
 }
 

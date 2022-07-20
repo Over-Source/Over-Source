@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------
-// client_base.qpc
+// Base Client Game Module Script
 // ---------------------------------------------------------------
 macro OUTBINNAME "client"
-macro OUTBINDIR "$SRC_DIR/../game/$GAMENAME/bin"
+macro OUTBINDIR "$SRCDIR/../game/$GAMENAME/bin/$PLATSUBDIR"
 macro GAMENAME [!$GAMENAME]
 
 include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"
@@ -40,8 +40,6 @@ configuration
 	
 	linker
 	{
-		ignore_import_library "true"
-	
 		libraries
 		{
 			"winmm.lib" "Shell32.lib" "User32.lib" [$WINDOWS]

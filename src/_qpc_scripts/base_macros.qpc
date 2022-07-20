@@ -20,8 +20,6 @@ macro PLATSUBDIR        "/."       [$X360]
 macro PLATSUBDIR        "/linux32" [$LINUX32]
 macro PLATSUBDIR        "/osx32"   [$OSX32]
 
-macro OUT_BIN_NAME "$PROJECT_SCRIPT_NAME" [!$OUT_BIN_NAME]
-
 macro LIBPUBLIC "$SRC_DIR/lib/public$PLATSUBDIR"
 macro LIBCOMMON "$SRC_DIR/lib/common$PLATSUBDIR"
 

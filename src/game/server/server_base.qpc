@@ -2,7 +2,7 @@
 // server_base.qpc
 // ---------------------------------------------------------------
 macro OUTBINNAME "server"
-macro OUTBINDIR "$SRC_DIR/../game/$GAMENAME/bin"
+macro OUTBINDIR "$SRCDIR/../game/$GAMENAME/bin/$PLATSUBDIR"
 macro GAMENAME [!$GAMENAME]
 
 include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"
@@ -11,8 +11,6 @@ configuration
 {
 	general
 	{
-		out_dir "./$CONFIG/$GAMENAME"
-		
 		include_directories
 		{
 			"$SRC_DIR/game/server"
@@ -45,16 +43,13 @@ configuration
 	{
 		libraries
 		{
-			"winmm.lib"
-			"bonesetup"
+			"winmm.lib" [$WINDOWS]
 			"choreoobjects"
 			"dmxloader"
 			"mathlib"
 			"particles"
-			"responserules_runtime"
 			"tier2"
 			"tier3"
-			"vgui_controls"
 			"steam_api"
 		}
 	}

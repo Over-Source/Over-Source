@@ -1830,7 +1830,8 @@ void CFire::ASWFireTouch( CBaseEntity *pOther )
 					if ( pExtMarine && pExtMarine->GetMarineResource() )
 					{
 						pExtMarine->GetMarineResource()->m_iFiresPutOut++;
-						m_bFirefighterCounted++;
+						//m_bFirefighterCounted++;
+						m_bFirefighterCounted = true;
 					}
 				}					
 				pExt->TouchedEnvFire();

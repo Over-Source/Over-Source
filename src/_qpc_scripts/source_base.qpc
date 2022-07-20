@@ -5,6 +5,12 @@
 include "$SRC_DIR/_qpc_scripts/base_macros.qpc"
 include "$SRC_DIR/_qpc_scripts/win/base_vstudio.qpc"	[$WINDOWS]
 
+build_event "copy_file" "INFILE" "OUTFILE"
+{
+	"copy $INFILE $OUTFILE" [$WINDOWS]
+	"cp $INFILE $OUTFILE" [!$WINDOWS]
+}
+
 configuration
 {
 	general

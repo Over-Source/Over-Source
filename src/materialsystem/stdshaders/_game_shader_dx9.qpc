@@ -5,8 +5,6 @@ macro PROJECT_NAME "game_shader_dx9"
 
 macro GAMENAME "mod_swarm" [!$GAMENAME]
 macro SRC_DIR "../.."
-macro OUT_BIN_NAME "game_shader_dx9"
-macro OUT_BIN_DIR "$SRC_DIR/../game/$GAMENAME/bin"
 
 include "$SRC_DIR/_qpc_scripts/source_dll_base.qpc"
 
@@ -14,13 +12,11 @@ configuration
 {
 	general
 	{
-		out_dir "$CONFIG_dx9"
+		out_dir "$CONFIG$PLATSUBDIR/dx9"
 		
 		include_directories
 		{
-			"fxctmp9"
-			"vshtmp9"
-			"$SRC_DIR/dx9sdk/include"
+			"fxctmp9" "vshtmp9" "$SRC_DIR/dx9sdk/include" [$WINDOWS]
 		}
 	}
 	
@@ -37,7 +33,7 @@ configuration
 	{
 		libraries
 		{
-			"version.lib" "winmm.lib"
+			"version.lib" "winmm.lib" [$WINDOWS]
 			"$LIBPUBLIC/mathlib"
 			"$LIBPUBLIC/shaderlib"
 		}

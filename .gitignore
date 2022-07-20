@@ -85,3 +85,4 @@ compile_commands.json
 
 # Shit
 compile_commands/
+src/lib/common/

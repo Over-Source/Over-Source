@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------
 // client_base.qpc
 // ---------------------------------------------------------------
-macro OUTBINnAME "client"
+macro OUTBINNAME "client"
 macro OUTBINDIR "$SRC_DIR/../game/$GAMENAME/bin"
 macro GAMENAME [!$GAMENAME]
 
@@ -11,8 +11,6 @@ configuration
 {
 	general
 	{
-		out_dir "./$CONFIG/$GAMENAME"
-		
 		include_directories
 		{
 			"$SRC_DIR/game/client"
@@ -37,31 +35,26 @@ configuration
 		
 		precompiled_header "use"
 		precompiled_header_file "cbase.h"
+		precompiled_header_output_file "$BUILD_DIR/client.pch"
 	}
 	
 	linker
 	{
 		ignore_import_library "true"
-		
+	
 		libraries
 		{
-			"winmm.lib"
+			"winmm.lib" "Shell32.lib" "User32.lib" [$WINDOWS]
 			"bitmap"
-			"bonesetup"
 			"choreoobjects"
 			"dmxloader"
 			"mathlib"
-			"matsys_controls"
-			"npsclient"
 			"particles"
-			"raytrace"
-			"responserules_runtime"
 			"tier2"
 			"tier3"
 			"vgui_controls"
-			"videocfg"
-			"vtf"
 			"steam_api"
+			"raytrace"
 		}
 	}
 }

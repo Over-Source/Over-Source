@@ -24,6 +24,10 @@
 #include "tier1/callqueue.h"
 #include "c_world.h"
 
+#ifdef INFESTED_DLL
+#define USE_DETAIL_SHAPES
+#endif
+
 #ifdef USE_DETAIL_SHAPES
 #include "engine/ivdebugoverlay.h"
 #include "playerenumerator.h"

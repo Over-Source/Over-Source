@@ -18,6 +18,7 @@ project "missionchooser"    		"game/missionchooser/missionchooser_swarm.qpc" [$S
 
 project "captioncompiler" 			"utils/captioncompiler/captioncompiler.qpc"
 project "shaderlib"		    		"materialsystem/shaderlib/shaderlib.qpc"
+project "jpeglib"					"thirdparty/jpeglib/jpeglib.qpc" [$WINDOWS]
 project "game_shader"               "materialsystem/stdshaders/_game_shader_dx9.qpc"
 project "responserules_runtime"     "responserules/runtime/responserules_runtime.qpc"
 
@@ -40,6 +41,11 @@ group "utils"
 
 group "game" "everything"
 {
+	folder "Libraries"
+	{
+		"jpeglib"
+	}
+
 	folder "Game Binaries"
 	{
 		contains "gamedlls"
